@@ -18,7 +18,7 @@ st.markdown(
         background: linear-gradient(
             rgba(255,255,255,0.5), 
             rgba(255,255,255,0.5)
-        ), url("https://drive.google.com/file/d/19gUUvK8tkb74tpI6OEitZHtbCDl6kPHy/view?usp=drive_link");
+        ), url("https://drive.google.com/uc?export=view&id=19gUUvK8tkb74tpI6OEitZHtbCDl6kPHy");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
