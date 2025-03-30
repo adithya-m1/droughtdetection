@@ -1,7 +1,6 @@
 import streamlit as st
 import tensorflow as tf
 import numpy as np
-import cv2
 import os
 import matplotlib.pyplot as plt
 from PIL import Image
@@ -44,19 +43,18 @@ if uploaded_file is not None:
     with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmp_file:
         tmp_file.write(uploaded_file.getvalue())
         tmp_path = tmp_file.name
-    
+
     # --------------------------
     # 1. Satellite Classification
     # --------------------------
     try:
-    current_dir = os.path.dirname(os.path.abspath(__file__))  # Get script directory
-    sat_model_path = os.path.join(current_dir, "satellite_classifier_finetuned_v2.keras")
-
-    sat_model = tf.keras.models.load_model(sat_model_path)
-
+        current_dir = os.path.dirname(os.path.abspath(__file__))  # Get script directory
+        sat_model_path = os.path.join(current_dir, "satellite_classifier_finetuned_v2.keras")
+        sat_model = tf.keras.models.load_model(sat_model_path)
     except Exception as e:
         st.error(f"Error loading satellite classifier model: {e}")
-    
+        st.stop()
+
     img_sat = load_and_preprocess_for_satellite(tmp_path, target_size=(64, 64))
     sat_pred = sat_model.predict(img_sat)[0][0]
     
@@ -68,8 +66,6 @@ if uploaded_file is not None:
         sat_label = "Non Satellite"
         sat_confidence = 1 - sat_pred
     
-    #st.write(f"**Satellite Classification:** {sat_label} (Confidence: {sat_confidence*100:.2f}%)")
-    
     if sat_label != "Satellite":
         st.error("⚠️ Please upload a valid satellite image!")
     else:
@@ -79,7 +75,9 @@ if uploaded_file is not None:
         if st.button("Analyze for Drought"):
             with st.spinner("Processing..."):
                 try:
-                    drought_model = tf.keras.models.load_model('c:\\Users\\Adithya\\Downloads\\drought_detection_finetuned.keras')
+                    # Load model from Drive or GitHub if applicable
+                    drought_model_path = "drought_detection_finetuned.keras"  # Update this to the correct location
+                    drought_model = tf.keras.models.load_model(drought_model_path)
                 except Exception as e:
                     st.error(f"Error loading drought detection model: {e}")
                     st.stop()
@@ -109,12 +107,6 @@ if uploaded_file is not None:
                 
                 result_image = Image.open("temp_result.png")
                 st.image(result_image, width=350)
-                
-                # # Recommendations
-                # if "Drought" in drought_label:
-                #     st.warning("⚠️ Immediate Precaution intervention recommended")
-                # else:
-                #     st.info("🌱 Normal operations can continue")
     
     # Remove the temporary file
     os.remove(tmp_path)
