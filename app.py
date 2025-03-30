@@ -16,7 +16,7 @@ def get_base64_image(image_path):
         return base64.b64encode(img_file.read()).decode()
 
 # Encode the drought heatmap image
-background_image_path = "Screenshot 2025-03-30 200633.png"  # Ensure this file is in the same directory as your script.
+background_image_path = "upscalemedia-transformed.png"  # Ensure this file is in the same directory as your script.
 image_base64 = get_base64_image(background_image_path)
 
 # --------------------------
@@ -30,7 +30,7 @@ st.markdown(
             rgba(255,255,255,0.5), 
             rgba(255,255,255,0.5)
         ), url("data:image/png;base64,{image_base64}");
-        background-size: contain;
+        background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;
