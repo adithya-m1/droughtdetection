@@ -6,3 +6,4 @@ matplotlib
 opencv-python
 gdown
 requests
+opencv-python-headless
