@@ -4,6 +4,14 @@ Dataset Used: We have used LANDSAT8 Satellite Images of Northern Kenya which are
 
 Dataset credits: The data used in this research was collected through a research collaboration between the International Livestock Research Institute, Cornell University, and UC San Diego. It was supported by the Atkinson Centre for a Sustainable Future’s Academic Venture Fund, Australian Aid through the AusAID Development Research Awards Scheme Agreement No. 66138, the National Science Foundation (0832782, 1059284, 1522054), and ARO grant W911-NF-14-1-0498.
 
-https://wandb.ai/wandb/droughtwatch/benchmark https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LC08_C01_T1_RT
+LABELLED DATASET: https://wandb.ai/wandb/droughtwatch/benchmark
+DATASET: https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LC08_C01_T1_RT
 
 We have preprocessed the dataset by converting the tensorflow data into images by extracting from B4,B3,B2 bands along with their labels. The current dataset distribution has huge imbalance and Even though we tried different methodologies and deep learning models....The recall and accuracy of the classes in multiclassification are very low. To address the above issues, We have balanced the dataset and combined class0,1 into new class0 which is drought class and combined class 1,2 into new class 1 which is no drought class. Now we have applied different deep learning models to train this data..EfficientNet, basic CNN, VGG16 and MobileNetV2 among all of them EfficientNet has standed out giving the high accuracy.
+
+For Detailed Code and the Models code separately: 
+Refer DroughtDetectionUsingSatelliteImage Repository
+https://github.com/adithya-m1/DroughtDetectionUsingSatelliteImages
+
+For any further Details:
+Mail me at @adithyamanthena04@gmail.com
