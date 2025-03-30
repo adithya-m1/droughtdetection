@@ -30,7 +30,7 @@ st.markdown(
             rgba(255,255,255,0.5), 
             rgba(255,255,255,0.5)
         ), url("data:image/png;base64,{image_base64}");
-        background-size: cover;
+        background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;
