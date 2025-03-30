@@ -5,8 +5,8 @@ import os
 import matplotlib.pyplot as plt
 from PIL import Image
 import tempfile
-import gdown
-import base64  # Import base64 for encoding images
+import gdown  # Ensure gdown is in your requirements.txt
+import base64
 
 # --------------------------
 # Function to Encode Image in Base64
@@ -16,10 +16,11 @@ def get_base64_image(image_path):
         return base64.b64encode(img_file.read()).decode()
 
 # Encode the drought heatmap image
-image_base64 = get_base64_image("Screenshot 2025-03-30 200633.png")
+background_image_path = "Screenshot 2025-03-30 200633.png"  # Ensure this file is in the same directory as your script.
+image_base64 = get_base64_image(background_image_path)
 
 # --------------------------
-# Custom CSS for Enhanced UI with Background Image
+# Custom CSS for Enhanced UI with Responsive Background Image
 # --------------------------
 st.markdown(
     f"""
@@ -33,7 +34,14 @@ st.markdown(
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;
-        color: #333;
+        color: #333; /* Dark text for readability */
+    }}
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 768px) {{
+        .stApp {{
+            background-attachment: scroll;
+        }}
     }}
 
     /* Center headings */
