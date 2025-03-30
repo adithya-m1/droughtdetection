@@ -49,7 +49,11 @@ if uploaded_file is not None:
     # 1. Satellite Classification
     # --------------------------
     try:
-        sat_model = tf.keras.models.load_model('c:\\Users\\Adithya\\Downloads\\satellite_classifier_finetuned_v2.keras')
+    current_dir = os.path.dirname(os.path.abspath(__file__))  # Get script directory
+    sat_model_path = os.path.join(current_dir, "satellite_classifier_finetuned_v2.keras")
+
+    sat_model = tf.keras.models.load_model(sat_model_path)
+
     except Exception as e:
         st.error(f"Error loading satellite classifier model: {e}")
     
