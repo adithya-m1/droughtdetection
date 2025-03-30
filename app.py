@@ -5,6 +5,7 @@ import os
 import matplotlib.pyplot as plt
 from PIL import Image
 import tempfile
+import gdown  # Ensure gdown is in your requirements.txt
 
 # --------------------------
 # Helper Functions
@@ -24,6 +25,12 @@ def load_and_preprocess_for_drought(image_path, target_size=(65, 65)):
     img_array = img_array / 255.0  # Normalize
     img_array = np.expand_dims(img_array, axis=0)
     return img_array
+
+def download_drought_model(model_path, drive_url):
+    """Download the drought detection model from Google Drive if not present."""
+    if not os.path.exists(model_path):
+        st.info("Downloading drought detection model from Google Drive...")
+        gdown.download(drive_url, model_path, quiet=False)
 
 # --------------------------
 # Streamlit App
@@ -58,13 +65,11 @@ if uploaded_file is not None:
     img_sat = load_and_preprocess_for_satellite(tmp_path, target_size=(64, 64))
     sat_pred = sat_model.predict(img_sat)[0][0]
     
-    # Classification
+    # Classification based on prediction
     if sat_pred > 0.5:
         sat_label = "Satellite"
-        sat_confidence = sat_pred
     else:
         sat_label = "Non Satellite"
-        sat_confidence = 1 - sat_pred
     
     if sat_label != "Satellite":
         st.error("⚠️ Please upload a valid satellite image!")
@@ -75,8 +80,10 @@ if uploaded_file is not None:
         if st.button("Analyze for Drought"):
             with st.spinner("Processing..."):
                 try:
-                    # Load model from Drive or GitHub if applicable
-                    drought_model_path = "drought_detection_finetuned.keras"  # Update this to the correct location
+                    # Define local path and Google Drive URL for the drought model
+                    drought_model_path = os.path.join(current_dir, "drought_detection_finetuned.keras")
+                    drive_url = "https://drive.google.com/uc?id=1PKrPIwDs97hH_iAsz8CYom3GWb2FC3Od"
+                    download_drought_model(drought_model_path, drive_url)
                     drought_model = tf.keras.models.load_model(drought_model_path)
                 except Exception as e:
                     st.error(f"Error loading drought detection model: {e}")
@@ -85,13 +92,11 @@ if uploaded_file is not None:
                 img_drought = load_and_preprocess_for_drought(tmp_path, target_size=(65, 65))
                 drought_pred = drought_model.predict(img_drought)[0][0]
                 
-                # Classification
+                # Drought prediction classification
                 if drought_pred < 0.5:
                     drought_label = "Drought Detected"
-                    drought_confidence = 1 - drought_pred
                 else:
                     drought_label = "No Drought Detected"
-                    drought_confidence = drought_pred
                 
                 st.success("Analysis Complete!")
                 
