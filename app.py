@@ -46,7 +46,7 @@ st.markdown(
 # --------------------------
 # Streamlit App Header
 # --------------------------
-st.title("🌍 Satellite Image Rakesh Detection")
+st.title("🌍 Satellite Image Drought Detection")
 st.markdown("### Upload a satellite image for analysis")
 
 # File uploader widget
