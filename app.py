@@ -5,51 +5,61 @@ import os
 import matplotlib.pyplot as plt
 from PIL import Image
 import tempfile
-import gdown  # Ensure gdown is in your requirements.txt
+import gdown
+import base64  # Import base64 for encoding images
+
+# --------------------------
+# Function to Encode Image in Base64
+# --------------------------
+def get_base64_image(image_path):
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
+
+# Encode the drought heatmap image
+image_base64 = get_base64_image("Screenshot 2025-03-30 200633.png")
 
 # --------------------------
 # Custom CSS for Enhanced UI with Background Image
 # --------------------------
 st.markdown(
-    """
+    f"""
     <style>
-    /* Use a semi-transparent overlay on top of the drought heatmap */
-    .stApp {
+    .stApp {{
         background: linear-gradient(
             rgba(255,255,255,0.5), 
             rgba(255,255,255,0.5)
-        ), url("Screenshot 2025-03-30 200633.png");
+        ), url("data:image/png;base64,{image_base64}");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;
-        color: #333; /* Dark text for readability on lighter background */
-    }
+        color: #333;
+    }}
 
     /* Center headings */
-    h1, h2, h3, h4 {
+    h1, h2, h3, h4 {{
         text-align: center;
-    }
+    }}
 
     /* Style the buttons */
-    .stButton button {
+    .stButton button {{
         background-color: #ff5733;
         color: white;
         border-radius: 10px;
         padding: 8px 16px;
         border: none;
-    }
-    .stButton button:hover {
+    }}
+    .stButton button:hover {{
         background-color: #ff2e00;
-    }
+    }}
 
     /* Style the file uploader box */
-    div[data-testid="stFileUploader"] {
+    div[data-testid="stFileUploader"] {{
         background-color: rgba(255, 255, 255, 0.85);
         padding: 15px;
         border-radius: 10px;
         box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-    }
+    }}
     </style>
     """,
     unsafe_allow_html=True,
