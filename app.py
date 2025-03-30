@@ -62,8 +62,8 @@ st.markdown(
     }}
 
 div[data-testid="stFileUploader"] {{
-    background-color: rgba(230, 230, 230, 0.95);
-    border: 2px dashed #cccccc;
+    background-color: rgba(200, 200, 200, 0.95);  /* Darker light gray */
+    border: 2px solid #999999;  /* Solid border for contrast */
     padding: 15px;
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
