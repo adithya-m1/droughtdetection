@@ -61,13 +61,13 @@ st.markdown(
         background-color: #ff2e00;
     }}
 
-div[data-testid="stFileUploader"] {{
-    background-color: rgba(200, 200, 200, 0.95);  /* Darker light gray */
-    border: 2px solid #999999;  /* Solid border for contrast */
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-}}
+    div[data-testid="stFileUploader"] {{
+        background-color: rgba(200, 200, 200, 0.95);
+        border: 2px solid #999999;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    }}
     </style>
     """,
     unsafe_allow_html=True,
@@ -88,7 +88,7 @@ uploaded_file = st.file_uploader(
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
-    st.image(image, caption="Uploaded Image", width=350, use_column_width=True)
+    st.image(image, caption="Uploaded Image", width=350, use_container_width=True)  # Updated here
     
     with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmp_file:
         tmp_file.write(uploaded_file.getvalue())
